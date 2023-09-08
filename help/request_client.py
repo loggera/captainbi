@@ -2,7 +2,7 @@ import json
 
 import httpx
 import loguru
-import campaigns.help.json_data as hjd
+import help.json_data as hjd
 
 lg = loguru.logger
 
@@ -21,13 +21,12 @@ def get_amazon_api(url, headers):
         return False
 
 
-def get_amazon_next_token_api(url, headers, data):
+def get_api_have_params(url, headers, data):
     try:
         r = httpx.get(url, headers=headers, params=data)
         content = r.text
         lg.info(f'{r.status_code}')
-        lg.info(f'{content}')
-        if r.status_code == 200:
+        if 200 <= r.status_code < 400:
             json_body = hjd.is_json(content)
             return json_body
         else:
