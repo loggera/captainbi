@@ -25,7 +25,8 @@ def get_api_have_params(url, headers, data):
     try:
         r = httpx.get(url, headers=headers, params=data)
         content = r.text
-        lg.info(f'{r.status_code}')
+        lg.info(f"{content}")
+        lg.info(f'Code:{r.status_code}')
         if 200 <= r.status_code < 400:
             json_body = hjd.is_json(content)
             return json_body
